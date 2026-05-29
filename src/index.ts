@@ -261,8 +261,23 @@ app.get("/api/orderbook/:symbol", (req, res) => {
     res.status(200).json(book)
 });
 
-app.get("/api/users/:userId/balance", (req, res) => {});
-app.get("/api/users/:userId/positions", (req, res) => {});
+app.get("/api/users/:userId/balance", (req, res) => {
+    const {userId} = req.params
+    for(let user of User){
+        if(user.userId === userId){
+            res.status(200).json({user})
+        }
+    }
+});
+app.get("/api/users/:userId/positions", (req, res) => {
+    const {userId} = req.params
+    for(let user of User){
+        if(user.userId === userId){
+            const position = user.position
+            res.status(200).json({position})
+        }
+    }
+});
 app.get("/api/insurance-fund/:symbol", (req, res) => {});
 
 app.listen(3000, () => {
